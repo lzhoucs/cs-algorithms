@@ -1,8 +1,9 @@
 /* 
 	in-place, plain (no javascript API is used), so code is portable to any languages.
 	pivotFunc : function to find a pivot, optional
+    callback : optional
 */
-function quickSort(arry, pivotFunc) {
+exports.quickSort = function(arry, pivotFunc, callback) {
 
 	function _swap(indx1, indx2) {
 		var tmp = arry[indx1];
@@ -20,6 +21,9 @@ function quickSort(arry, pivotFunc) {
 
 			if(pivotFunc) 
 				_swap(pivotFunc(arry, l, r), l);
+
+            if(callback)
+                callback(arry, l, r);
 
 			for(; j < r; j++) {
 				if(arry[j] < arry[l]) {
