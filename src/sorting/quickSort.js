@@ -15,11 +15,12 @@ exports.quickSort = function(arry, pivotFunc, callback) {
 	*/
 	function _quickSort(l, r) {
 		var length = r - l,
-		i = j = l + 1;
+            i,
+            j = i = l + 1;
 			
 		if(length > 1) {
 
-			if(pivotFunc) 
+			if(pivotFunc)
 				_swap(pivotFunc(arry, l, r), l);
 
             if(callback)
@@ -33,8 +34,7 @@ exports.quickSort = function(arry, pivotFunc, callback) {
 			}
 
 			_swap(l, i - 1); // put pivot to its right position
-			
-			_quickSort(l, i - 2);
+			_quickSort(l, i - 1);
 			_quickSort(i, r);
 
 		} // else do nothing.
