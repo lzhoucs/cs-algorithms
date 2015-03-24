@@ -21,7 +21,7 @@ function quickSort(arry, pivotFunc) {
 			if(pivotFunc) 
 				_swap(pivotFunc(arry, l, r), l);
 
-			for(; j < r, j++) {
+			for(; j < r; j++) {
 				if(arry[j] < arry[l]) {
 					_swap(i, j);
 					i++;
