@@ -1,0 +1,14 @@
+# intellij project files #
+##########################
+.idea/
+*.iml
+
+# eclipse project files #
+#########################
+.classpath
+.project
+.settings/
+
+# build file #
+##############
+target/
