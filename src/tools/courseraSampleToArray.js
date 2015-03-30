@@ -21,15 +21,24 @@ var strToArray = function(str) {
     })
 }
 
-exports.getArray = function (url, callback) {
-
+function simpleHttpHandler(url, callback) {
     http.get(url, function(response) {
         var str = '';
         response.on('data', function (chunk) {
             str += chunk;
         });
         response.on('end', function () {
-            callback( strToArray(str) )
+            callback( str )
         });
     });
+}
+
+exports.getNumberArray = function (url, callback) {
+    simpleHttpHandler(url, function (str) {
+        var numberArry = str.trim().split('\r\n').map(function (elStr) {
+            return parseInt(elStr);
+        })
+        callback(numberArry);
+    });
+
 };

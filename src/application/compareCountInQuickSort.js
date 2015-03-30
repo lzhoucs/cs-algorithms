@@ -43,20 +43,20 @@ var pivotFunc3 = function(arry, l, r) {
 var total1, total2,
     total3 = total2 = total1 = 0;
 
-crTool.getArray('http://spark-public.s3.amazonaws.com/algo1/programming_prob/QuickSort.txt', function(arry) {
+crTool.getNumberArray('http://spark-public.s3.amazonaws.com/algo1/programming_prob/QuickSort.txt', function(arry) {
     alg.quickSort(arry, pivotFunc1, function(arry, l, r) {
         total1 += (r - l - 1);
     });
     //console.log(arry);
     console.log("total1 : " + total1);
 });
-crTool.getArray('http://spark-public.s3.amazonaws.com/algo1/programming_prob/QuickSort.txt', function(arry) {
+crTool.getNumberArray('http://spark-public.s3.amazonaws.com/algo1/programming_prob/QuickSort.txt', function(arry) {
     alg.quickSort(arry, pivotFunc2, function(arry, l, r) {
         total2 += (r - l - 1);
     });
     console.log("total2 : " + total2);
 });
-crTool.getArray('http://spark-public.s3.amazonaws.com/algo1/programming_prob/QuickSort.txt', function(arry) {
+crTool.getNumberArray('http://spark-public.s3.amazonaws.com/algo1/programming_prob/QuickSort.txt', function(arry) {
     alg.quickSort(arry, pivotFunc3, function(arry, l, r) {
         total3 += (r - l - 1);
     });
