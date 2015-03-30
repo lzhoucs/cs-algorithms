@@ -1,44 +1,45 @@
 var http = require('http');
 
-/*
-* Convert from coursera sample format to javascript array.
-* e.g :
-*
-* a.txt :
-*
-* 111
-* 222
-* 333
-* 444
-*
-* converts to
-*
-* [111,222,333,444]
-* */
-var strToArray = function(str) {
-    return str.trim().split('\r\n').map(function (elStr) {
-        return parseInt(elStr);
-    })
-}
 
-function simpleHttpHandler(url, callback) {
+var courseraHttpHandler = function(url, processor, callback) {
     http.get(url, function(response) {
         var str = '';
         response.on('data', function (chunk) {
             str += chunk;
         });
         response.on('end', function () {
-            callback( str )
+            var processedStr = str.trim().split('\r\n').map( processor );
+            callback( processedStr );
         });
     });
 }
 
+var strToInt = function (str) {
+    return parseInt(str);
+}
+/*
+ * Convert from coursera sample format to javascript array.
+ * e.g :
+ *
+ * a.txt :
+ *
+ * 111
+ * 222
+ * 333
+ * 444
+ *
+ * converts to
+ *
+ * [111,222,333,444]
+ * */
+
 exports.getNumberArray = function (url, callback) {
-    simpleHttpHandler(url, function (str) {
-        var numberArry = str.trim().split('\r\n').map(function (elStr) {
-            return parseInt(elStr);
-        })
-        callback(numberArry);
-    });
+    courseraHttpHandler(url, strToInt, callback);
 
 };
+
+exports.getAdjacencylist = function (url, callback) {
+    courseraHttpHandler(url, function (str) {
+        return str.trim().split('\t').map( strToInt );
+    }, callback);
+}
