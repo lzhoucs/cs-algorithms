@@ -1,11 +1,12 @@
-require('./adjacencylistUndirectedGraph');
+var alug = require('./adjacencylistUndirectedGraph');
+
 /**
  * For finding minimum cut in a simple undirected graph
  */
 
 exports.randomizedContraction = function(graph) {
     var lastFoundEdge;
-    while(graph.size > 2) {
+    while(graph.size() > 2) {
         lastFoundEdge = getRandomEdge(graph);
         if(lastFoundEdge) {
             graph.contract(lastFoundEdge.vertex1, lastFoundEdge.vertex2)
@@ -14,7 +15,7 @@ exports.randomizedContraction = function(graph) {
         }
 
     }
-    if(graph.size === 2) {
+    if(graph.size() === 2) {
         return lastFoundEdge.vertex1.edgeSize();
     }
 }
@@ -22,25 +23,30 @@ exports.randomizedContraction = function(graph) {
 function getRandomEdge(graph) {
     var vertex = getRandomVertex(graph),
         edge;
+    console.log("vertex picked : " + vertex.index);
     while(!edge) {
-        edge = getAnEdge(vertex);
+        edge = getAnEdge(graph, vertex);
     }
     return edge;
 }
 function getRandomVertex(graph) {
-    graph.get( Math.floor( Math.random() * graph.size) - 1 );
+    return graph.get( Math.floor( Math.random() * graph.size()) - 1 );
 }
 
 
-function getAnEdge(vertex) {
+function getAnEdge(graph, vertex) {
     // TODO is there a better way?
     var el;
     var isFound = vertex.adjacentVertices.some( function(_el) {
         el = _el;
         return graph.get(_el).adjacentVertices.indexOf(vertex.index) !=-1;
     } );
-    if(isFound)
-        return new Edge(vertex, graph.get(el));
+    console.log("Found edge : " + isFound);
+    if(isFound) {
+        // if it is not this line, this module would not depend on 'adjacencylistUndirectedGraph'
+        return new alug.Edge(vertex, graph.get(el));
+    }
+
 }
 
 /*
