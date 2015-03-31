@@ -1,7 +1,7 @@
 /* takes more memory since new sub arrays are created and passed to subroutine/subprocess; 
    this function assumes that each element in the arry can be compared using <= correctly.
 */
-function mergeSort(arry) {
+exports.mergeSort = function(arry) {
 	var arryLength = arry.length;
 	if(arry && arryLength > 1) {
 		var midIndx = parseInt(arryLength/2);

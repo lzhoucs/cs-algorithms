@@ -1,5 +1,3 @@
-
-
 var     crTool  = require('../tools/courseraSampleToArray'),
         alg     = require('../sorting/quickSort');
 
