@@ -1,11 +1,21 @@
 var     crTool  = require('../tools/courseraSampleToArray'),
-        alg     = require('../graph/randomizedContraction');
-        alug   = require('../graph/adjacencylistUndirectedGraph')
+        alg     = require('../graph/randomizedContraction'),
+        alug   = require('../graph/adjacencylistUndirectedGraph'),
+
+        times = 400;
 
 
 crTool.getAdjacencylist('http://spark-public.s3.amazonaws.com/algo1/programming_prob/kargerMinCut.txt', function(data) {
+    var min = Number.MAX_VALUE;
 
-    console.log("data : " + data);
-    var result = alg.randomizedContraction( new alug.AdjacencylistUndirectedGraph(data) );
-    console.log("result : " + result);
+    for(var i = 0 ; i < times; i++) {
+        var result = alg.randomizedContraction( new alug.AdjacencylistUndirectedGraph(data) );
+        console.log((i+1) + "th result : " + result);
+
+        if(result < min)
+            min = result;
+    }
+    console.log("final min cut : " + min);
+
+
 });

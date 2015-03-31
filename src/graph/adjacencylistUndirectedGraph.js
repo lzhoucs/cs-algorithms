@@ -1,3 +1,4 @@
+var util = require('../tools/util');
 
 var Vertex = function(indx, adjacentVertices) {
     this.index = indx;
@@ -13,20 +14,39 @@ var Edge = function(vertex1, vertex2) {
 }
 
 exports.AdjacencylistUndirectedGraph = function(data) {
-    var ajList = data,
-        tmpVertex;
+    var ajList = data.map(function (el) {
+            return new Vertex(el[0], el.slice(1));
+        }),
+        tmpVertex,
+        find = function(indx) {
+            return util.arryFind(ajList, function(vertex) {return vertex.index === indx});
+        };
     this.size = function() {
         return ajList.length;
     }
 
+    this.getith = function(i) {
+        return ajList[i];
+    }
+
     this.get = function(indx) {
-        //console.log("Getting : " + indx);
-        var row = ajList[indx - 1];
-        return new Vertex(row[0], row.slice(1));
+        var findResult = find(indx);
+
+        if(findResult)
+            return findResult.el;
+        else
+            throw new Error("Vertex is not found at index : " + indx);
+    }
+
+    this.remove = function(indx) {
+        var findResult = find(indx);
+        if(findResult)
+            return ajList.splice(findResult.i, 1); // return removed element
+        else
+            throw new Error("Cannot delete vertex at index : " + indx + ". Vertex is not found.");
     }
 
     this.contract = function(vertex1, vertex2) {
-        console.log("Contracting vertices : " + vertex1.index + " and " + vertex2.index);
         var self = this;
 
         vertex1.adjacentVertices.forEach(function (el) {
@@ -44,19 +64,8 @@ exports.AdjacencylistUndirectedGraph = function(data) {
         vertex2.adjacentVertices = vertex2.adjacentVertices.concat(vertex1.adjacentVertices).filter(function (el) {
             return el !== vertex2.index;
         })
-        /*var al = vertex2.adjacentVertices.concat(vertex1.adjacentVertices);
-        console.log("Debug 1 : " + al);
 
-        al = al.filter(function (el) {
-            el !== vertex2.index;
-        });
-        console.log("Debug 2 : " + al);
-
-        vertex2.adjacentVertices = al;
-        */
-        ajList[vertex1.index - 1] = null;
-
-        console.log("Contracted adjacencylist : " + vertex2.adjacentVertices);
+        this.remove(vertex1.index);
     }
 }
 
