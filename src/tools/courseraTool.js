@@ -1,14 +1,14 @@
 var http = require('http');
 
 
-var courseraHttpHandler = function(url, processor, callback) {
+var courseraHttpHandler = function(url, lineProcessor, callback) {
     http.get(url, function(response) {
         var str = '';
         response.on('data', function (chunk) {
             str += chunk;
         });
         response.on('end', function () {
-            var processedStr = str.trim().split('\r\n').map( processor );
+            var processedStr = str.trim().split('\r\n').map( lineProcessor );
             callback( processedStr );
         });
     });
@@ -40,6 +40,6 @@ exports.getNumberArray = function (url, callback) {
 
 exports.getAdjacencylist = function (url, callback) {
     courseraHttpHandler(url, function (str) {
-        return str.trim().split('\t').map( strToInt );
+        return str.trim().split(/\s+/).map( strToInt );
     }, callback);
 }
