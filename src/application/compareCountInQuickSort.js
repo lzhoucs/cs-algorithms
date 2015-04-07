@@ -1,4 +1,4 @@
-var     crTool  = require('../tools/courseraSampleToArray'),
+var     crTool  = require('../tools/courseraTool'),
         alg     = require('../sorting/quickSort');
 
 

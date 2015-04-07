@@ -1,4 +1,4 @@
-var     crTool  = require('../tools/courseraSampleToArray'),
+var     crTool  = require('../tools/courseraTool'),
         alg     = require('../sorting/mergeSort');
 
 crTool.getNumberArray('http://spark-public.s3.amazonaws.com/algo1/programming_prob/IntegerArray.txt', function (arry) {
