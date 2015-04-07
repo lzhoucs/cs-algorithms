@@ -8,8 +8,9 @@ var courseraHttpHandler = function(url, lineProcessor, callback) {
             str += chunk;
         });
         response.on('end', function () {
-            var processedStr = str.trim().split('\r\n').map( lineProcessor );
-            callback( processedStr );
+            //TODO some data ends with \n (problem 4), some data ends with \r\n. Needs a better solution.
+            var data = str.trim().split('\n').map( lineProcessor );
+            callback( data );
         });
     });
 }
@@ -61,3 +62,4 @@ exports.getNumberArray = function (url, callback) {
 exports.get2DNumberArray = function (url, callback) {
     courseraHttpHandler(url, lineToIntArry, callback);
 }
+
