@@ -1,15 +1,11 @@
-/* 
+var util = require('../tools/util');
+
+/*
 	in-place, plain (no javascript API is used), so code is portable to any languages.
 	pivotFunc : function to find a pivot, optional
     callback : optional
 */
 exports.quickSort = function(arry, pivotFunc, callback) {
-
-	function _swap(indx1, indx2) {
-		var tmp = arry[indx1];
-		arry[indx1] = arry[indx2];
-		arry[indx2] = tmp;
-	}
 	/*
 		i - first bigger element index
 	*/
@@ -21,19 +17,19 @@ exports.quickSort = function(arry, pivotFunc, callback) {
 		if(length > 1) {
 
 			if(pivotFunc)
-				_swap(pivotFunc(arry, l, r), l);
+				util.arrySwap(arry, pivotFunc(arry, l, r), l);
 
             if(callback)
                 callback(arry, l, r);
 
 			for(; j < r; j++) {
 				if(arry[j] < arry[l]) {
-					_swap(i, j);
+					util.arrySwap(arry, i, j);
 					i++;
 				} // else do nothing
 			}
 
-			_swap(l, i - 1); // put pivot to its right position
+			util.arrySwap(arry, l, i - 1); // put pivot to its right position
 			_quickSort(l, i - 1);
 			_quickSort(i, r);
 
