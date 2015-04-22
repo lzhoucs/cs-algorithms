@@ -8,7 +8,9 @@ var     crTool  = require('../tools/courseraTool'),
 
         SCCByDFS = function (graph, vertexIndicesList, beginCallback, endCallback) {
             for(var i = vertexIndicesList.length - 1; i >=0; i--) {
-                if(!graph.getVertexByIndx(vertexIndicesList[i]).isExplored) {
+                var vertex = graph.getVertexByIndx(vertexIndicesList[i]);
+
+                if(vertex && !vertex.isExplored) {
                     if(beginCallback)
                         S = vertexIndicesList[i];
                     alg.DFS( graph, vertexIndicesList[i], beginCallback, endCallback)
@@ -35,14 +37,14 @@ crTool.get2DNumberArray('http://spark-public.s3.amazonaws.com/algo1/programming_
         leaderBoard = [];
 
     // first pass
-    SCCByDFS(reversedGraph.getVertexIndicesList(), null, function (indx) {
+    SCCByDFS(reversedGraph, reversedGraph.getVertexIndicesList(), null, function (indx) {
         finishingTimes[indx] = T++;
     });
     console.log("2. First pass done.");
 
     graph.reorder(finishingTimes);
     // second pass
-    SCCByDFS(graph.getVertexIndicesList(), function (indx) {
+    SCCByDFS(graph, graph.getVertexIndicesList(), function (indx) {
         leaders[indx] = S;
     }, null);
 

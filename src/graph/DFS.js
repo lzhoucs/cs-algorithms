@@ -7,7 +7,9 @@ exports.DFS = function (graph, vertexIndx, beginCallback, endCallback){
         graph.getVertexByIndx(_vertexIndx).isExplored = true;
 
         graph.getAdjacencyIndicesList(_vertexIndx).forEach(function (indx) {
-            if(!graph.getVertexByIndx(indx).isExplored)
+            var vertex = graph.getVertexByIndx(indx);
+
+            if(vertex && !vertex.isExplored)
                 _DFS(indx);
         });
 

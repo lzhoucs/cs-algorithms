@@ -31,7 +31,7 @@ exports.AdjacencyListDirectedGraph = function(data) {
             ajList[indx].adjacentVertexIndices.push(outGoingVertexIndx) // this is assuming there is no duplicated entry in the
             // original data, which means we are assuming there is no parallel edges
         } else {
-            ajList[indx] = new Vertex(indx, outGoingVertexIndx);
+            ajList[indx] = new Vertex(indx, [outGoingVertexIndx]);
         }
 
     });
