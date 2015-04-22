@@ -41,10 +41,8 @@ exports.AdjacencyListDirectedGraph = function(data) {
         });
     }
 
-    this.getAdjacencyList = function(vertex) {
-        vertex.adjacentVertexIndices.map(function (indx) {
-            return ajList[indx];
-        });
+    this.getAdjacencyIndicesList = function(indx) {
+        ajList[indx].adjacentVertexIndices;
     }
 
     this.getVertexByIndx = function(indx) {

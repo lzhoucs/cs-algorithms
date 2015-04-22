@@ -1,19 +1,19 @@
-exports.DFS = function (graph, vertex, beginCallback, endCallback){
+exports.DFS = function (graph, vertexIndx, beginCallback, endCallback){
 
-    var _DFS = function(v) {
+    var _DFS = function(_vertexIndx) {
         if(beginCallback)
-            beginCallback(v);
+            beginCallback(_vertexIndx);
 
-        v.isExplored = true;
+        graph.getVertexByIndx(_vertexIndx).isExplored = true;
 
-        graph.getAdjacencyList(v).forEach(function (el) {
-            if(!el.isExplored)
-                _DFS(el);
+        graph.getAdjacencyIndicesList(_vertexIndx).forEach(function (indx) {
+            if(!graph.getVertexByIndx(indx).isExplored)
+                _DFS(indx);
         });
 
         if(endCallback)
-            endCallback(v);
+            endCallback(_vertexIndx);
     }
 
-    _DFS(vertex)
+    _DFS(vertexIndx)
 }
