@@ -8,6 +8,7 @@ var util = require('../tools/util');
  *
  * @constructor
  */
+    //TODO {} or Object?
 var Vertex = function(indx, adjacentVertexIndices) {
     this.index = indx;
     this.adjacentVertexIndices = adjacentVertexIndices;
@@ -42,12 +43,20 @@ exports.AdjacencyListDirectedGraph = function(data) {
     }
 
     this.getAdjacencyIndicesList = function(indx) {
-        ajList[indx].adjacentVertexIndices;
+        return ajList[indx].adjacentVertexIndices;
     }
 
     this.getVertexByIndx = function(indx) {
         return ajList[indx];
     }
 
+    this.reorder = function (orderArry) {
+        ajList.forEach(function (vertex) {
+            vertex.index = orderArry[vertex.index];
+            vertex.adjacentVertexIndices = vertex.adjacentVertexIndices.map(function (indx) {
+                return orderArry[indx];
+            })
+        })
+    }
 
 }
