@@ -23,13 +23,14 @@ exports.AdjacencyListDirectedGraph = function(data) {
     var ajList = [];
 
     data.forEach(function (el) {
-        var indx = el[0];
+        var indx = el[0],
+            outGoingVertexIndx = el[1];
 
         if(ajList[indx]) {
-            ajList[indx].adjacentVertexIndices.push(el[1]) // this is assuming there is no duplicated entry in the
+            ajList[indx].adjacentVertexIndices.push(outGoingVertexIndx) // this is assuming there is no duplicated entry in the
             // original data, which means we are assuming there is no parallel edges
         } else {
-            ajList[indx] = new Vertex(indx, el[1]);
+            ajList[indx] = new Vertex(indx, outGoingVertexIndx);
         }
 
     });
@@ -44,6 +45,10 @@ exports.AdjacencyListDirectedGraph = function(data) {
         vertex.adjacentVertexIndices.map(function (indx) {
             return ajList[indx];
         });
+    }
+
+    this.getVertexByIndx = function(indx) {
+        return ajList[indx];
     }
 
 
