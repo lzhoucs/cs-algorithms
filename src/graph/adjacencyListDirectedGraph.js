@@ -1,17 +1,18 @@
 var util = require('../tools/util');
 
-var Vertex = function(indx, adjacentVertices) {
+/**
+ *
+ * @param indx
+ * @param adjacentVertexIndices array of adjacent vertex indices.
+ * Only the indices, not the actual vertices.
+ *
+ * @constructor
+ */
+var Vertex = function(indx, adjacentVertexIndices) {
     this.index = indx;
-    this.adjacentVertices = adjacentVertices;
-    this.edgeSize = function() {
-        return this.adjacentVertices.length;
-    }
+    this.adjacentVertexIndices = adjacentVertexIndices;
 }
 
-var Edge = function(vertex1, vertex2) {
-    this.vertex1 = vertex1;
-    this.vertex2 = vertex2;
-}
 
 /**
  *
@@ -19,60 +20,31 @@ var Edge = function(vertex1, vertex2) {
  * @constructor
  */
 exports.AdjacencyListDirectedGraph = function(data) {
-    var ajList = data.map(function (el) {
-            return new Vertex(el[0], el.slice(1));
-        }),
-        tmpVertex,
-        find = function(indx) {
-            return util.arryFind(ajList, function(vertex) {return vertex.index === indx});
-        };
-    this.size = function() {
-        return ajList.length;
+    var ajList = [];
+
+    data.forEach(function (el) {
+        var indx = el[0];
+
+        if(ajList[indx]) {
+            ajList[indx].adjacentVertexIndices.push(el[1]) // this is assuming there is no duplicated entry in the
+            // original data, which means we are assuming there is no parallel edges
+        } else {
+            ajList[indx] = new Vertex(indx, el[1]);
+        }
+
+    });
+
+    this.getVertexIndicesList = function() {
+        return ajList.map(function (vertex) {
+            return vertex.index;
+        });
     }
 
-    this.getith = function(i) {
-        return ajList[i];
+    this.getAdjacencyList = function(vertex) {
+        vertex.adjacentVertexIndices.map(function (indx) {
+            return ajList[indx];
+        });
     }
 
-    this.get = function(indx) {
-        var findResult = find(indx);
 
-        if(findResult)
-            return findResult.el;
-        else
-            throw new Error("Vertex is not found at index : " + indx);
-    }
-
-    this.remove = function(indx) {
-        var findResult = find(indx);
-        if(findResult)
-            return ajList.splice(findResult.i, 1); // return removed element
-        else
-            throw new Error("Cannot delete vertex at index : " + indx + ". Vertex is not found.");
-    }
-
-    this.contract = function(vertex1, vertex2) {
-        var self = this;
-
-        vertex1.adjacentVertices.forEach(function (el) {
-
-            tmpVertex = self.get(el);
-            tmpVertex.adjacentVertices.forEach(function (_el, i) {
-                if(_el === vertex1.index) {
-                    tmpVertex.adjacentVertices[i] = vertex2.index;
-                }
-
-            });
-
-        })
-
-        vertex2.adjacentVertices = vertex2.adjacentVertices.concat(vertex1.adjacentVertices).filter(function (el) {
-            return el !== vertex2.index;
-        })
-
-        this.remove(vertex1.index);
-    }
 }
-
-exports.Vertex = Vertex;
-exports.Edge = Edge;
