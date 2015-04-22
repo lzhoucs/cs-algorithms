@@ -20,6 +20,7 @@ exports.arrySwap = function (arry, indx1, indx2) {
     var tmp = arry[indx1];
     arry[indx1] = arry[indx2];
     arry[indx2] = tmp;
+    return arry; // the return value may or may not be used.
 }
 
 var FindResult = function(el, i) {
