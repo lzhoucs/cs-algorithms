@@ -25,8 +25,6 @@ exports.AdjacencyListDirectedGraph = function(data) {
 
     });
 
-    console.log("ajList : " + ajList);
-
     this.getVertexIndicesList = function() {
         return ajList.map(function (vertex) {
             return vertex.index;
@@ -42,7 +40,7 @@ exports.AdjacencyListDirectedGraph = function(data) {
     }
 
     this.reorder = function (orderArry) {
-        //TODO last piece
+
         function resetVertex(vertex) {
             if(!vertex.isReordered) {
                 vertex.index = orderArry[vertex.index];
@@ -50,22 +48,16 @@ exports.AdjacencyListDirectedGraph = function(data) {
                     return orderArry[indx];
                 })
                 vertex.isReordered = true;
+
+                var nextVertex = ajList[vertex.index];
+                ajList[vertex.index] = vertex;
+                resetVertex( nextVertex )
             }
 
         }
         for(var i = 1 ; i < ajList.length; i++) {
-            var vertex = ajList[i];
-            resetVertex(vertex);
-
-            if(vertex.index !== i) {
-                resetVertex(ajList[vertex.index]);
-                console.log("swapping : " + vertex.index + " and " + i)
-                util.arrySwap(ajList, vertex.index, i);
-            }
-
-
+            resetVertex(ajList[i]);
         }
-        console.log("ajList (reorder) : " + ajList);
     }
 
 }
