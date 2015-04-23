@@ -2,21 +2,6 @@ var util = require('../tools/util');
 
 /**
  *
- * @param indx
- * @param adjacentVertexIndices array of adjacent vertex indices.
- * Only the indices, not the actual vertices.
- *
- * @constructor
- */
-    //TODO {} or Object?
-var Vertex = function(indx, adjacentVertexIndices) {
-    this.index = indx;
-    this.adjacentVertexIndices = adjacentVertexIndices;
-}
-
-
-/**
- *
  * @param data  2-D array
  * @constructor
  */
@@ -31,10 +16,16 @@ exports.AdjacencyListDirectedGraph = function(data) {
             ajList[indx].adjacentVertexIndices.push(outGoingVertexIndx) // this is assuming there is no duplicated entry in the
             // original data, which means we are assuming there is no parallel edges
         } else {
-            ajList[indx] = new Vertex(indx, [outGoingVertexIndx]);
+            ajList[indx] = {
+                index : indx,
+                adjacentVertexIndices : [outGoingVertexIndx],
+                toString : function() { return this.index + " -> [" + this.adjacentVertexIndices + "]"}
+            };
         }
 
     });
+
+    console.log("ajList : " + ajList);
 
     this.getVertexIndicesList = function() {
         return ajList.map(function (vertex) {
@@ -51,12 +42,30 @@ exports.AdjacencyListDirectedGraph = function(data) {
     }
 
     this.reorder = function (orderArry) {
-        ajList.forEach(function (vertex) {
-            vertex.index = orderArry[vertex.index];
-            vertex.adjacentVertexIndices = vertex.adjacentVertexIndices.map(function (indx) {
-                return orderArry[indx];
-            })
-        })
+        //TODO last piece
+        function resetVertex(vertex) {
+            if(!vertex.isReordered) {
+                vertex.index = orderArry[vertex.index];
+                vertex.adjacentVertexIndices = vertex.adjacentVertexIndices.map(function (indx) {
+                    return orderArry[indx];
+                })
+                vertex.isReordered = true;
+            }
+
+        }
+        for(var i = 1 ; i < ajList.length; i++) {
+            var vertex = ajList[i];
+            resetVertex(vertex);
+
+            if(vertex.index !== i) {
+                resetVertex(ajList[vertex.index]);
+                console.log("swapping : " + vertex.index + " and " + i)
+                util.arrySwap(ajList, vertex.index, i);
+            }
+
+
+        }
+        console.log("ajList (reorder) : " + ajList);
     }
 
 }

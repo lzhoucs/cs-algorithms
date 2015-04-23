@@ -8,12 +8,16 @@ var     crTool  = require('../tools/courseraTool'),
 
         DFSLoop = function (graph, vertexIndicesList, beginCallback, endCallback) {
             for(var i = vertexIndicesList.length - 1; i >=0; i--) {
-                var vertex = graph.getVertexByIndx(vertexIndicesList[i]);
+                var indx = vertexIndicesList[i];
+                var vertex = graph.getVertexByIndx(indx);
 
                 if(vertex && !vertex.isExplored) {
-                    if(beginCallback)
-                        S = vertexIndicesList[i];
-                    alg.DFS( graph, vertexIndicesList[i], beginCallback, endCallback)
+                    if(beginCallback) {
+                        S = indx;
+                        console.log("leader : " + S)
+                    }
+
+                    alg.DFS( graph, indx, beginCallback, endCallback)
                 }
             }
         },
@@ -40,6 +44,7 @@ var     crTool  = require('../tools/courseraTool'),
                 finishingTimes[indx] = T++;
             });
             console.log("2. First pass done.");
+            console.log("finishingTimes : " + finishingTimes);
 
             graph.reorder(finishingTimes);
             // second pass
@@ -48,6 +53,8 @@ var     crTool  = require('../tools/courseraTool'),
             }, null);
 
             console.log("3. Second pass done.");
+
+            console.log("Leaders : " + leaders);
 
             leaders.forEach(function (indx) {
                 var score = leaderBoard[indx];
@@ -63,10 +70,24 @@ var     crTool  = require('../tools/courseraTool'),
             leaderBoard.sort(function (a, b) {
                 return b - a;
             });
-            console.log(leaderBoard);
+            console.log("leaderBoard : " + leaderBoard);
 
         }
 
-crTool.get2DNumberArray('http://spark-public.s3.amazonaws.com/algo1/programming_prob/SCC.txt', SCCByDFS);
+//crTool.get2DNumberArray('http://spark-public.s3.amazonaws.com/algo1/programming_prob/SCC.txt', SCCByDFS);
 
-
+SCCByDFS([
+    [1, 2],
+    [2, 6],
+    [2, 3],
+    [2, 4],
+    [3, 1],
+    [3, 4],
+    [4, 5],
+    [5, 4],
+    [6, 5],
+    [6, 7],
+    [7, 6],
+    [7, 8],
+    [8, 5],
+    [8, 7]]);
