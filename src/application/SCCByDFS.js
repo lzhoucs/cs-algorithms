@@ -71,5 +71,6 @@ var     crTool  = require('../tools/courseraTool'),
 
         }
 
+//TODO Try DFS iterative based on stack. (https://class.coursera.org/algo-007/forum/thread?thread_id=411)it is not working for large data set like this one.
 crTool.get2DNumberArray('http://spark-public.s3.amazonaws.com/algo1/programming_prob/SCC.txt', SCCByDFS);
 

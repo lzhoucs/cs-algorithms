@@ -1,5 +1,3 @@
-var util = require('../tools/util');
-
 /**
  *
  * @param data  2-D array
