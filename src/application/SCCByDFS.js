@@ -1,5 +1,5 @@
 var     crTool  = require('../tools/courseraTool'),
-        alg     = require('../graph/DFS'),
+        alg     = require('../graph/DFSItr'),
         aldg    = require('../graph/adjacencyListDirectedGraph'),
         util = require('../tools/util'),
 
@@ -16,7 +16,7 @@ var     crTool  = require('../tools/courseraTool'),
                         S = indx;
                     }
 
-                    alg.DFS( graph, indx, beginCallback, endCallback)
+                    alg.DFSItr( graph, indx, beginCallback, endCallback)
                 }
             }
         },
