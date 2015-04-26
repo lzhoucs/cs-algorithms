@@ -1,3 +1,11 @@
+/**
+ * Recursive version of Depth First Search
+ * @param graph
+ * @param vertexIndx
+ * @param beginCallback
+ * @param endCallback
+ * @constructor
+ */
 exports.DFS = function (graph, vertexIndx, beginCallback, endCallback){
 
     var _DFS = function(_vertexIndx) {
