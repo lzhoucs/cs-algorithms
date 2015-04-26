@@ -1,9 +1,7 @@
-var     crTool  = require('../tools/courseraTool'),
-        alg     = require('../graph/DFSItr'),
+var     alg     = require('../graph/DFSItr'),
         aldg    = require('../graph/adjacencyListDirectedGraph'),
         util = require('../tools/util'),
-
-        T = 1,
+        T,
         S = null,
 
         DFSLoop = function (graph, vertexIndicesList, beginCallback, endCallback) {
@@ -26,7 +24,7 @@ var     crTool  = require('../tools/courseraTool'),
          */
          SCCByDFS = function(data) {
 
-            console.log("1. Got data.");
+            console.log("Got data.");
 
             var graph = new aldg.AdjacencyListDirectedGraph(data),
                 reversedGraph = new aldg.AdjacencyListDirectedGraph(data.map(function (el) {
@@ -34,16 +32,17 @@ var     crTool  = require('../tools/courseraTool'),
                     return util.arrySwap(el, 0, 1);
                 })),
 
+                T = 1,
                 finishingTimes = [],
                 leaders = [],
                 leaderBoard = [];
 
-            console.log("2. First pass start.");
+            console.log("First pass start.");
             // first pass
             DFSLoop(reversedGraph, reversedGraph.getVertexIndicesList(), null, function (indx) {
                 finishingTimes[indx] = T++;
             });
-            console.log("2. First pass done.");
+            console.log("First pass done.");
 
             graph.reorder(finishingTimes);
             // second pass
@@ -51,7 +50,7 @@ var     crTool  = require('../tools/courseraTool'),
                 leaders[indx] = S;
             }, null);
 
-            console.log("3. Second pass done.");
+            console.log("Second pass done.");
 
             leaders.forEach(function (indx) {
                 var score = leaderBoard[indx];
@@ -62,15 +61,16 @@ var     crTool  = require('../tools/courseraTool'),
                 leaderBoard[indx] = score;
 
             })
+            console.log("Aggregate result done.");
 
             //descending order
             leaderBoard.sort(function (a, b) {
                 return b - a;
             });
-            console.log("leaderBoard : " + leaderBoard);
+            console.log("Sort result done.");
+
+            return util.getTopN(leaderBoard, 5);
 
         }
 
-//TODO Try DFS iterative based on stack. (https://class.coursera.org/algo-007/forum/thread?thread_id=411)it is not working for large data set like this one.
-crTool.get2DNumberArray('http://spark-public.s3.amazonaws.com/algo1/programming_prob/SCC.txt', SCCByDFS);
-
+exports.SCCByDFS = SCCByDFS;

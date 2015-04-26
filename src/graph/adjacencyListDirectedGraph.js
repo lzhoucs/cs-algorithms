@@ -40,7 +40,7 @@ exports.AdjacencyListDirectedGraph = function(data) {
     this.reorder = function (orderArry) {
 
         function resetVertex(vertex) {
-            if(!vertex.isReordered) {
+            if(vertex && !vertex.isReordered) {
                 vertex.index = orderArry[vertex.index];
                 vertex.adjacentVertexIndices = vertex.adjacentVertexIndices.map(function (indx) {
                     return orderArry[indx];
