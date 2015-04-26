@@ -1,0 +1,29 @@
+{
+  "name": "cs-algorithms",
+  "version": "0.0.0",
+  "description": "Most commonly used algorithms implemented by most commonly used language.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "~2.2.4"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lzhoucs/cs-algorithms.git"
+  },
+  "keywords": [
+    "algorithms"
+  ],
+  "author": "Liang Zhou",
+  "license": "Apache",
+  "bugs": {
+    "url": "https://github.com/lzhoucs/cs-algorithms/issues"
+  },
+  "homepage": "https://github.com/lzhoucs/cs-algorithms"
+}

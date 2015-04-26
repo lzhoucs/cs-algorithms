@@ -12,3 +12,6 @@
 # build file #
 ##############
 target/
+
+# nodejs
+node_modules
