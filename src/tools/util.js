@@ -23,6 +23,20 @@ exports.arrySwap = function (arry, indx1, indx2) {
     return arry; // the return value may or may not be used.
 }
 
+exports.getTopN = function (arry, N, fromRight) {
+    var result = [];
+
+    if(fromRight) {
+        for(var i = arry.length - 1 ; i >=(arry.length - N) ; i--)
+            result.push(arry[i]);
+    } else {
+        for(var i = 0 ; i < N ; i++)
+            result.push(arry[i]);
+    }
+    return result;
+
+}
+
 var FindResult = function(el, i) {
     this.el = el;
     this.i = i;
