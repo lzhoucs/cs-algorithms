@@ -1,7 +1,7 @@
 {
   "name": "cs-algorithms",
   "version": "0.0.0",
-  "description": "Most commonly used algorithms implemented by most commonly used language.",
+  "description": "Most commonly used algorithms implemented by most commonly used languages.",
   "main": "index.js",
   "directories": {
     "test": "test"
