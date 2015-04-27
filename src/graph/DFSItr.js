@@ -30,8 +30,13 @@ exports.DFSItr = function (graph, vertexIndx, beginCallback, endCallback){
         graph.getAdjacencyIndicesList(_vertexIndx).forEach(function (indx) {
             var vertex = graph.getVertexByIndx(indx);
 
-            if(vertex && !vertex.isExplored)
-                stack.push(indx);
+            if(vertex) {
+                if(!vertex.isExplored)
+                    stack.push(indx);
+            } else {
+                if(endCallback)
+                    endCallback(indx);
+            }
         });
 
 

@@ -1,20 +1,30 @@
 var     alg     = require('../graph/DFSItr'),
         aldg    = require('../graph/adjacencyListDirectedGraph'),
         util = require('../tools/util'),
-        T,
         S = null,
 
         DFSLoop = function (graph, vertexIndicesList, beginCallback, endCallback) {
-            for(var i = vertexIndicesList.length - 1; i >=0; i--) {
+            for(var i = vertexIndicesList.length - 1; i >0; i--) {
                 var indx = vertexIndicesList[i];
                 var vertex = graph.getVertexByIndx(indx);
 
-                if(vertex && !vertex.isExplored) {
+                if(vertex) {
+                    if(!vertex.isExplored) {
+                        if(beginCallback) {
+                            S = indx;
+                        }
+
+                        alg.DFSItr( graph, indx, beginCallback, endCallback);
+                    }
+                } else {
+                    // Important! indx is undefined here
                     if(beginCallback) {
-                        S = indx;
+                        S = i;
+                        beginCallback(i);
                     }
 
-                    alg.DFSItr( graph, indx, beginCallback, endCallback)
+                    if(endCallback)
+                        endCallback(i);
                 }
             }
         },
@@ -40,7 +50,7 @@ var     alg     = require('../graph/DFSItr'),
             console.log("First pass start.");
             // first pass
             DFSLoop(reversedGraph, reversedGraph.getVertexIndicesList(), null, function (indx) {
-                finishingTimes[indx] = T++;
+                if(!finishingTimes[indx])finishingTimes[indx] = T++;
             });
             console.log("First pass done.");
 

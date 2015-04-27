@@ -25,7 +25,7 @@ exports.AdjacencyListDirectedGraph = function(data) {
 
     this.getVertexIndicesList = function() {
         return ajList.map(function (vertex) {
-            return vertex.index;
+            if(vertex)return vertex.index;
         });
     }
 
@@ -41,6 +41,7 @@ exports.AdjacencyListDirectedGraph = function(data) {
 
         function resetVertex(vertex) {
             if(vertex && !vertex.isReordered) {
+                var oriIndex = vertex.index;
                 vertex.index = orderArry[vertex.index];
                 vertex.adjacentVertexIndices = vertex.adjacentVertexIndices.map(function (indx) {
                     return orderArry[indx];
@@ -48,8 +49,14 @@ exports.AdjacencyListDirectedGraph = function(data) {
                 vertex.isReordered = true;
 
                 var nextVertex = ajList[vertex.index];
-                ajList[vertex.index] = vertex;
-                resetVertex( nextVertex )
+                if(nextVertex !== vertex) {
+                    ajList[vertex.index] = vertex;
+
+                    if(ajList[oriIndex] === vertex)
+                        ajList[oriIndex] = null;
+                    resetVertex( nextVertex )
+                }
+
             }
 
         }

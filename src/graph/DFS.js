@@ -17,8 +17,13 @@ exports.DFS = function (graph, vertexIndx, beginCallback, endCallback){
         graph.getAdjacencyIndicesList(_vertexIndx).forEach(function (indx) {
             var vertex = graph.getVertexByIndx(indx);
 
-            if(vertex && !vertex.isExplored)
-                _DFS(indx);
+            if(vertex) {
+                if(!vertex.isExplored)
+                    _DFS(indx);
+            } else {
+                if(endCallback)
+                    endCallback(indx);
+            }
         });
 
         if(endCallback)
