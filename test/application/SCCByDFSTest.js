@@ -3,7 +3,6 @@ var     app4  = require('../../src/application/SCCByDFS'),
 
 
 describe('app4 : SCCByDFS', function(){
-
     it('1. should match the expected result.', function(){
 
         assert.deepEqual([3,3,3,undefined, undefined], app4.SCCByDFS([
@@ -49,7 +48,8 @@ describe('app4 : SCCByDFS', function(){
             [7, 8]]));
     })
     it('4. should match the expected result.', function(){
-        assert.deepEqual([7, 1, undefined, undefined, undefined], app4.SCCByDFS([1, 2],
+        assert.deepEqual([7, 1, undefined, undefined, undefined], app4.SCCByDFS([
+            [1, 2],
             [2, 3],
             [3, 1],
             [3, 4],
@@ -59,7 +59,7 @@ describe('app4 : SCCByDFS', function(){
             [6, 7],
             [7, 8],
             [4, 3],
-            [4, 6]));
+            [4, 6]]));
 
     })
 })
