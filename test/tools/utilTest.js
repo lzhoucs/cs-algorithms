@@ -1,3 +1,5 @@
+/*global describe it */
+
 var util = require('../../src/tools/util'),
   assert = require("assert");
 

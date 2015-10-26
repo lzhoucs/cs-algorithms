@@ -1,3 +1,5 @@
+/*global describe it */
+
 var app4 = require('../../src/application/SCCByDFS'),
   assert = require("assert");
 
