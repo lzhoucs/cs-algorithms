@@ -6,29 +6,29 @@
  * @param endCallback
  * @constructor
  */
-exports.DFS = function (graph, vertexIndx, beginCallback, endCallback){
+exports.DFS = function (graph, vertexIndx, beginCallback, endCallback) {
 
-    var _DFS = function(_vertexIndx) {
-        if(beginCallback)
-            beginCallback(_vertexIndx);
+  var _DFS = function (_vertexIndx) {
+    if (beginCallback)
+      beginCallback(_vertexIndx);
 
-        graph.getVertexByIndx(_vertexIndx).isExplored = true;
+    graph.getVertexByIndx(_vertexIndx).isExplored = true;
 
-        graph.getAdjacencyIndicesList(_vertexIndx).forEach(function (indx) {
-            var vertex = graph.getVertexByIndx(indx);
+    graph.getAdjacencyIndicesList(_vertexIndx).forEach(function (indx) {
+      var vertex = graph.getVertexByIndx(indx);
 
-            if(vertex) {
-                if(!vertex.isExplored)
-                    _DFS(indx);
-            } else {
-                if(endCallback)
-                    endCallback(indx);
-            }
-        });
+      if (vertex) {
+        if (!vertex.isExplored)
+          _DFS(indx);
+      } else {
+        if (endCallback)
+          endCallback(indx);
+      }
+    });
 
-        if(endCallback)
-            endCallback(_vertexIndx);
-    }
+    if (endCallback)
+      endCallback(_vertexIndx);
+  }
 
-    _DFS(vertexIndx)
+  _DFS(vertexIndx)
 }

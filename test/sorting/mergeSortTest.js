@@ -1,8 +1,8 @@
-console.log(inversionByMergeSort([1,5,3,2,4]).count);
+console.log(inversionByMergeSort([1, 5, 3, 2, 4]).count);
 
-console.log(inversionByMergeSort([5,4,3,2,1]).count);
+console.log(inversionByMergeSort([5, 4, 3, 2, 1]).count);
 
-console.log(inversionByMergeSort([1,6,3,2,4,5]).count);
+console.log(inversionByMergeSort([1, 6, 3, 2, 4, 5]).count);
 
 console.log(inversionByMergeSort([9, 12, 3, 1, 6, 8, 2, 5, 14, 13, 11, 7, 10, 4, 0]).count);
 

@@ -6,39 +6,39 @@
  * @param endCallback
  * @constructor
  */
-exports.DFSItr = function (graph, vertexIndx, beginCallback, endCallback){
+exports.DFSItr = function (graph, vertexIndx, beginCallback, endCallback) {
 
-    var stack = [vertexIndx],
-        vertex;
+  var stack = [vertexIndx],
+    vertex;
 
-    while(stack.length > 0) {
-        var _vertexIndx = stack.pop();
+  while (stack.length > 0) {
+    var _vertexIndx = stack.pop();
 
-        vertex = graph.getVertexByIndx(_vertexIndx);
-        if(vertex.isExplored) {
-            if(endCallback)
-                endCallback(_vertexIndx);
-        } else {
-            vertex.isExplored = true;
+    vertex = graph.getVertexByIndx(_vertexIndx);
+    if (vertex.isExplored) {
+      if (endCallback)
+        endCallback(_vertexIndx);
+    } else {
+      vertex.isExplored = true;
 
-            if(beginCallback)
-                beginCallback(_vertexIndx);
+      if (beginCallback)
+        beginCallback(_vertexIndx);
 
-            stack.push(_vertexIndx);
-        }
-
-        graph.getAdjacencyIndicesList(_vertexIndx).forEach(function (indx) {
-            var vertex = graph.getVertexByIndx(indx);
-
-            if(vertex) {
-                if(!vertex.isExplored)
-                    stack.push(indx);
-            } else {
-                if(endCallback)
-                    endCallback(indx);
-            }
-        });
-
-
+      stack.push(_vertexIndx);
     }
+
+    graph.getAdjacencyIndicesList(_vertexIndx).forEach(function (indx) {
+      var vertex = graph.getVertexByIndx(indx);
+
+      if (vertex) {
+        if (!vertex.isExplored)
+          stack.push(indx);
+      } else {
+        if (endCallback)
+          endCallback(indx);
+      }
+    });
+
+
+  }
 }
