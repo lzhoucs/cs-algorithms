@@ -29,14 +29,14 @@ exports.DFSItr = function (graph, vertexIndx, beginCallback, endCallback){
 
     while(stack.length > 0) {
         var _vertexIndx = stack.pop();
-        if(beginCallback)
-            beginCallback(_vertexIndx);
 
         vertex = graph.getVertexByIndx(_vertexIndx);
         if(vertex.isExplored) {
             if(endCallback)
                 endCallback(_vertexIndx);
         } else {
+            if(beginCallback)
+                beginCallback(_vertexIndx);
             vertex.isExplored = true;
             stack.push(_vertexIndx);
         }

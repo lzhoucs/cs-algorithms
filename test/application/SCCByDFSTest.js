@@ -1,4 +1,6 @@
-SCCByDFS([
+var app = require('../../src/application/SCCByDFS');
+
+app.SCCByDFS([
     [1, 4],
     [2, 8],
     [3, 6],
@@ -12,7 +14,7 @@ SCCByDFS([
     [9, 3]]);
 //3,3,3,0,0
 
-SCCByDFS([
+app.SCCByDFS([
     [1, 2],
     [2, 6],
     [2, 3],
